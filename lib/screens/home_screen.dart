@@ -7,7 +7,7 @@ import 'package:policies_app/screens/yes_no_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:policies_app/widgets/input_form.dart';
 
-class Homescreen extends StatelessWidget{
+class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
 
   @override
