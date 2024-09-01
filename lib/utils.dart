@@ -16,6 +16,12 @@ abstract class ThemeText {
           letterSpacing: 3,
           fontWeight: FontWeight.bold));
 
+  static TextStyle yesNoText = GoogleFonts.montserrat(
+      textStyle: const TextStyle(
+          color: ThemeColours.accentColor,
+          fontSize: 30,
+          fontWeight: FontWeight.bold));
+
   static TextStyle bodyText = GoogleFonts.montserrat(
       textStyle: const TextStyle(
           color: ThemeColours.primaryColor,

@@ -22,7 +22,7 @@ class Filledbutton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
           backgroundColor: MaterialStateProperty.all(buttoncolor)),
     );
   }
