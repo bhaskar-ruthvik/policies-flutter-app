@@ -45,37 +45,22 @@ class _InputFormState extends State<InputForm> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(24.0, 0.0, 24.0, 24.0),
-          child: Container(
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 2.0,
-                    spreadRadius: 0.0,
-                    offset: Offset(0.5, 2.0),
-                  )
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Card(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 47),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 47),
               child: Column(
                 children: [
                   Text('ASK A QUESTION', style: ThemeText.titleText2),
-                  SizedBox(height: 49),
+                  const SizedBox(height: 50),
                   DropdownButtonFormField(
-                    focusColor: Color(0xFF41495F),
                     dropdownColor: Colors.white,
                     decoration: InputDecoration(
-                        focusColor: Color(0xFF41495F),
-                        hoverColor: Color(0xFF41495F),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        label: Text("Choose Input Language",
+                        label: const Text("Choose Input Language",
                             style: TextStyle(color: Color(0xFF41495F)))),
                     value: dropdownValue,
                     onChanged: (String? value) {
-                      // This is called when the user selects an item.
                       setState(() {
                         dropdownValue = value!;
                       });
@@ -95,18 +80,16 @@ class _InputFormState extends State<InputForm> {
                       });
                     },
                     decoration: InputDecoration(
-                        focusColor: Color(0xFF41495F),
-                        hoverColor: Color(0xFF41495F),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        label: Text("Enter your question",
+                        label: const Text("Enter your question",
                             style: TextStyle(color: Color(0xFF41495F)))),
                   ),
-                  SizedBox(height: 13),
+                  const SizedBox(height: 13),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
+                      SizedBox(
                         //see change
                         height: 40,
                         width: 115,
@@ -119,7 +102,7 @@ class _InputFormState extends State<InputForm> {
                               backgroundColor: MaterialStateProperty.all(
                                   ThemeColours.primaryColor)),
                           child: !_loading
-                              ? Text("Ask",
+                              ? const Text("Ask",
                                   style: TextStyle(color: Colors.white))
                               : CircularProgressIndicator(//change theme
                                   ),
@@ -152,7 +135,7 @@ class _InputFormState extends State<InputForm> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],

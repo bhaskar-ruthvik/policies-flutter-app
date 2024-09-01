@@ -3,6 +3,7 @@ import 'package:policies_app/screens/flowchart_screen.dart';
 import 'package:policies_app/screens/home_screen.dart';
 import 'package:policies_app/screens/paragraph_screen.dart';
 import 'package:policies_app/screens/yes_no_screen.dart';
+import 'package:policies_app/utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,10 @@ class MyApp extends StatelessWidget {
       title: 'Policies App',
       darkTheme: ThemeData.dark(
         useMaterial3: true,
-      ).copyWith(colorScheme: ColorScheme.dark(primary: Color(0xFF424A5F))),
+      ).copyWith(
+          colorScheme: ColorScheme.dark(primary: ThemeColours.primaryColor)),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: ThemeColours.primaryColor),
         useMaterial3: true,
       ),
       home: const Homescreen(),

@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 abstract class ThemeColours {
@@ -9,22 +9,22 @@ abstract class ThemeColours {
 }
 
 abstract class ThemeText {
-  static const TextStyle titleText2 = TextStyle(
-      fontFamily: 'Montserrat',
-      color: ThemeColours.secondaryColor,
-      fontSize: 15,
-      letterSpacing: 3,
-      fontWeight: FontWeight.w700);
+  static TextStyle titleText2 = GoogleFonts.montserrat(
+      textStyle: const TextStyle(
+          color: ThemeColours.secondaryColor,
+          fontSize: 15,
+          letterSpacing: 3,
+          fontWeight: FontWeight.bold));
 
-  static const TextStyle bodyText = TextStyle(
-      fontFamily: 'Montserrat',
-      color: ThemeColours.primaryColor,
-      fontSize: 15,
-      fontWeight: FontWeight.w400);
+  static TextStyle bodyText = GoogleFonts.montserrat(
+      textStyle: const TextStyle(
+          color: ThemeColours.primaryColor,
+          fontSize: 15,
+          fontWeight: FontWeight.w400));
 
-  static const TextStyle titleText = TextStyle(
-      fontFamily: 'Montserrat',
-      color: ThemeColours.primaryColor,
-      fontSize: 30,
-      fontWeight: FontWeight.w600);
+  static TextStyle titleText = GoogleFonts.montserrat(
+      textStyle: const TextStyle(
+          color: ThemeColours.primaryColor,
+          fontSize: 30,
+          fontWeight: FontWeight.w600));
 }
