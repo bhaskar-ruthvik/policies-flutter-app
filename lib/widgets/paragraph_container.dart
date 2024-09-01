@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:policies_app/utils.dart';
 import 'package:policies_app/widgets/filledbutton.dart';
+import 'package:policies_app/widgets/nextquestion_button.dart';
 
 class ParagraphContainer extends StatefulWidget {
   const ParagraphContainer(
@@ -26,76 +27,84 @@ class _ParagraphState extends State<ParagraphContainer> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(24.0, 0.0, 24.0, 24.0),
-          child: Card(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 47),
-              child: Column(
-                children: [
-                  Text(
-                    'STEP ${index + 1}',
-                    style: ThemeText.titleText2,
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    headings[index],
-                    style: ThemeText.titleText,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 30),
-                  Text(
-                    paragraphs[index],
-                    style: ThemeText.bodyText,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const SizedBox(height: 40),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Card(
+                color: Colors.white,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 47),
+                  child: Column(
                     children: [
-                      index == 0
-                          ? SizedBox()
-                          : Expanded(
-                              child: Filledbutton(
-                              text: "Previous",
-                              buttoncolor: index == 0
-                                  ? Colors.white
-                                  : ThemeColours.primaryColor,
-                              onPressed: () {
-                                setState(() {
-                                  if (index > 0) {
-                                    index--;
-                                  }
-                                });
-                              },
-                            )),
-                      const SizedBox(
-                        width: 10,
+                      Text(
+                        'STEP ${index + 1}',
+                        style: ThemeText.titleText2,
+                        textAlign: TextAlign.center,
                       ),
-                      index == headings.length - 1
-                          ? SizedBox()
-                          : Expanded(
-                              child: Filledbutton(
-                              buttoncolor: index == headings.length - 1
-                                  ? Colors.white
-                                  : ThemeColours.accentColor,
-                              text: "Next",
-                              onPressed: () {
-                                setState(() {
-                                  if (index < headings.length - 1) {
-                                    index++;
-                                  }
-                                });
-                              },
-                            ))
+                      Text(
+                        headings[index],
+                        style: ThemeText.titleText,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        paragraphs[index],
+                        style: ThemeText.bodyText,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(height: 40),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          index == 0
+                              ? SizedBox()
+                              : Expanded(
+                                  child: Filledbutton(
+                                  text: "Previous",
+                                  buttoncolor: index == 0
+                                      ? Colors.white
+                                      : ThemeColours.primaryColor,
+                                  onPressed: () {
+                                    setState(() {
+                                      if (index > 0) {
+                                        index--;
+                                      }
+                                    });
+                                  },
+                                )),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          index == headings.length - 1
+                              ? const SizedBox()
+                              : Expanded(
+                                  child: Filledbutton(
+                                  buttoncolor: index == headings.length - 1
+                                      ? Colors.white
+                                      : ThemeColours.accentColor,
+                                  text: "Next",
+                                  onPressed: () {
+                                    setState(() {
+                                      if (index < headings.length - 1) {
+                                        index++;
+                                      }
+                                    });
+                                  },
+                                ))
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
+              const NextQuestionButton()
+            ],
           ),
         )
       ],

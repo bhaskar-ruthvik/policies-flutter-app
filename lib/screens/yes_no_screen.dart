@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:policies_app/utils.dart';
-import 'package:policies_app/widgets/outlinedbutton.dart';
+import 'package:policies_app/widgets/nextquestion_button.dart';
 
 class YesNoScreen extends StatelessWidget {
   const YesNoScreen({super.key, required this.resBody});
@@ -46,9 +46,7 @@ class YesNoScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Outlinedbutton(
-                    onPressed: () {},
-                  ),
+                  const NextQuestionButton(),
                 ],
               ),
             ),
