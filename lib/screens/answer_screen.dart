@@ -13,7 +13,7 @@ class AnswerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return res.type == "Yes/No Question"
         ? YesNoScreen(resBody: res.body)
-        : res.type == "Informative Paragraph Question"
+        : res.type == "Informative Paragraph Question" //make default
             ? ParagraphScreen(resBody: res.body)
             : FlowchartScreen(resBody: res.body);
   }
