@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: ThemeColours.primaryColor),
         useMaterial3: true,
       ),
-      home: const Homescreen(),
+      home: const SafeArea(child: Homescreen()),
     );
   }
 }

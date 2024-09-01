@@ -12,13 +12,16 @@ class ParagraphScreen extends StatelessWidget {
     var tp2 = resBody['slugs'] as List<dynamic>;
     List<String> slugs = tp2.map((e) => e.toString()).toList();
     return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          alignment: Alignment.center,
-          child: ParagraphContainer(headings: headings, slugs: slugs),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/assets/background2.png"),
+            fit: BoxFit.cover,
+          ),
         ),
+        height: double.infinity,
+        alignment: Alignment.center,
+        child: ParagraphContainer(headings: headings, slugs: slugs),
       ),
     );
   }

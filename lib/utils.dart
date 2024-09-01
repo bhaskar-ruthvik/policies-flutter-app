@@ -20,11 +20,11 @@ abstract class ThemeText {
       textStyle: const TextStyle(
           color: ThemeColours.primaryColor,
           fontSize: 15,
-          fontWeight: FontWeight.w400));
+          fontWeight: FontWeight.w500));
 
   static TextStyle titleText = GoogleFonts.montserrat(
       textStyle: const TextStyle(
           color: ThemeColours.primaryColor,
           fontSize: 30,
-          fontWeight: FontWeight.w600));
+          fontWeight: FontWeight.bold));
 }

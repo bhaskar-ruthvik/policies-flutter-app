@@ -4,9 +4,13 @@ import 'package:policies_app/utils.dart';
 class Filledbutton extends StatelessWidget {
   final String text;
   final Color buttoncolor;
+  final VoidCallback onPressed;
 
   const Filledbutton(
-      {super.key, required this.text, required this.buttoncolor});
+      {super.key,
+      required this.text,
+      required this.buttoncolor,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class Filledbutton extends StatelessWidget {
         text,
         style: TextStyle(color: Colors.white),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),

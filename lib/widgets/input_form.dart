@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:policies_app/models/Response.dart';
 import 'package:policies_app/screens/answer_screen.dart';
 import 'package:http/http.dart' as http;
@@ -57,8 +58,8 @@ class _InputFormState extends State<InputForm> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        label: const Text("Choose Input Language",
-                            style: TextStyle(color: Color(0xFF41495F)))),
+                        label: Text("Choose Input Language",
+                            style: ThemeText.bodyText)),
                     value: dropdownValue,
                     onChanged: (String? value) {
                       setState(() {
@@ -72,7 +73,7 @@ class _InputFormState extends State<InputForm> {
                       );
                     }).toList(),
                   ),
-                  SizedBox(height: 13),
+                  const SizedBox(height: 13),
                   TextField(
                     onChanged: (value) {
                       setState(() {
@@ -82,8 +83,8 @@ class _InputFormState extends State<InputForm> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        label: const Text("Enter your question",
-                            style: TextStyle(color: Color(0xFF41495F)))),
+                        label: Text("Enter your question",
+                            style: ThemeText.bodyText)),
                   ),
                   const SizedBox(height: 13),
                   Row(
@@ -102,8 +103,10 @@ class _InputFormState extends State<InputForm> {
                               backgroundColor: MaterialStateProperty.all(
                                   ThemeColours.primaryColor)),
                           child: !_loading
-                              ? const Text("Ask",
-                                  style: TextStyle(color: Colors.white))
+                              ? Text("Ask",
+                                  style: GoogleFonts.montserrat(
+                                      textStyle:
+                                          const TextStyle(color: Colors.white)))
                               : CircularProgressIndicator(//change theme
                                   ),
                           onPressed: () async {
