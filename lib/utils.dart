@@ -28,6 +28,12 @@ abstract class ThemeText {
           fontSize: 15,
           fontWeight: FontWeight.w500));
 
+  static TextStyle flowchartText = GoogleFonts.montserrat(
+      textStyle: const TextStyle(
+          color: ThemeColours.primaryColor,
+          fontSize: 24,
+          fontWeight: FontWeight.w500));
+
   static TextStyle titleText = GoogleFonts.montserrat(
       textStyle: const TextStyle(
           color: ThemeColours.primaryColor,

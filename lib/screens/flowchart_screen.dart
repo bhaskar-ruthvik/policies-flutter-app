@@ -8,16 +8,19 @@ class FlowchartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final questions = resBody['questions'] ?? [];
+    final List<dynamic> flowchart = resBody['flowchart'] ?? [];
 
     return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          alignment: Alignment.center,
-          child: QuestionContainer(questions: questions),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/assets/background2.png"),
+            fit: BoxFit.cover,
+          ),
         ),
+        height: double.infinity,
+        alignment: Alignment.center,
+        child: QuestionContainer(flowchart: flowchart),
       ),
     );
   }
