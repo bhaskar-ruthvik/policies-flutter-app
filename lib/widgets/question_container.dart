@@ -26,18 +26,36 @@ class _QuestionState extends State<QuestionContainer> {
     );
   }
 
+  void showModal2(String info) {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return CustomModal(info: info);
+      },
+    );
+  }
+
+  String? currentActionText; // State variable to store the current action text
+
   void handleAction(dynamic action) {
     if (action is int) {
       setState(() {
         index = action;
+        currentActionText =
+            null; // Clear the action text when moving to a new question
       });
     } else if (action is String) {
       if (action.toLowerCase().contains("proceed to the next question")) {
         setState(() {
           index++;
+          currentActionText =
+              null; // Clear the action text when moving to the next question
         });
       } else {
-        showModal(action);
+        setState(() {
+          currentActionText =
+              action; // Update the action text to display it on the card
+        });
       }
     }
   }
@@ -58,16 +76,19 @@ class _QuestionState extends State<QuestionContainer> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Card(
+                    color: Colors.white,
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 47),
                         child: Column(
                           children: [
-                            Text("QUESTION ${index + 1}",
-                                style: ThemeText.titleText2),
+                            if (currentActionText == null)
+                              Text("QUESTION ${index + 1}",
+                                  style: ThemeText.titleText2),
                             const SizedBox(height: 35),
                             Text(
-                              flowchart[index]["question"] ??
+                              currentActionText ??
+                                  flowchart[index]["question"] ??
                                   "No question available.",
                               style: ThemeText.flowchartText,
                               textAlign: TextAlign.center,
@@ -75,34 +96,59 @@ class _QuestionState extends State<QuestionContainer> {
                             const SizedBox(
                               height: 40,
                             ),
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Filledbutton(
-                                      onPressed: () {
-                                        final yesAction =
-                                            flowchart[index]["yes_action"];
-                                        handleAction(yesAction);
-                                      },
-                                      text: 'No',
-                                      buttoncolor: ThemeColours.primaryColor,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Filledbutton(
-                                      onPressed: () {
-                                        final noAction =
-                                            flowchart[index]["no_action"];
-                                        handleAction(noAction);
-                                      },
-                                      text: 'Yes',
-                                      buttoncolor: ThemeColours.accentColor,
-                                    ),
-                                  ),
-                                ]),
+                            currentActionText == null
+                                ? Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                        Expanded(
+                                          child: Filledbutton(
+                                            onPressed: () {
+                                              final noAction =
+                                                  flowchart[index]["no_action"];
+                                              handleAction(noAction);
+                                            },
+                                            text: 'No',
+                                            buttoncolor:
+                                                ThemeColours.primaryColor,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Filledbutton(
+                                            onPressed: () {
+                                              final yesAction = flowchart[index]
+                                                  ["yes_action"];
+                                              handleAction(yesAction);
+                                            },
+                                            text: 'Yes',
+                                            buttoncolor:
+                                                ThemeColours.accentColor,
+                                          ),
+                                        ),
+                                      ])
+                                : index < flowchart.length - 1
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                            Expanded(
+                                              child: Filledbutton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    index++;
+                                                    currentActionText =
+                                                        null; // Clear the action text when moving to the next question
+                                                  });
+                                                },
+                                                text: 'See Next Question',
+                                                buttoncolor:
+                                                    ThemeColours.accentColor,
+                                              ),
+                                            ),
+                                          ])
+                                    : SizedBox(height: 10),
                           ],
                         ))),
                 const SizedBox(height: 20),

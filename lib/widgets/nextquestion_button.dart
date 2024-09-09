@@ -18,13 +18,13 @@ class NextQuestionButton extends StatelessWidget {
       style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-          backgroundColor: MaterialStateProperty.all(Colors.white),
+          backgroundColor: MaterialStateProperty.all(Colors.transparent),
           side: MaterialStateProperty.all(
               const BorderSide(color: ThemeColours.secondaryColor))),
       child: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 6.0),
         child: Text(
-          'Next Question',
+          'Ask Another Question',
           style: TextStyle(
             color: ThemeColours.secondaryColor,
             fontFamily: 'Montserrat',

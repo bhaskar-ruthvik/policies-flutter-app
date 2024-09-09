@@ -75,6 +75,12 @@ class _InputFormState extends State<InputForm> {
                   ),
                   const SizedBox(height: 13),
                   TextField(
+                    onSubmitted: (value) {
+                      //in attempt to make enter button on simulator work
+                      setState(() {
+                        _question = value;
+                      });
+                    },
                     onChanged: (value) {
                       setState(() {
                         _question = value;
@@ -94,41 +100,50 @@ class _InputFormState extends State<InputForm> {
                         //see change
                         height: 40,
                         width: 115,
-                        child: TextButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5))),
-                              backgroundColor: MaterialStateProperty.all(
-                                  ThemeColours.primaryColor)),
-                          child: !_loading
-                              ? Text("Ask",
-                                  style: GoogleFonts.montserrat(
-                                      textStyle:
-                                          const TextStyle(color: Colors.white)))
-                              : CircularProgressIndicator(//change theme
-                                  ),
-                          onPressed: () async {
+                        child: GestureDetector(
+                          //in attempt to make enter button on simulator work
+                          onTap: () {
                             setState(() {
                               _loading = true;
                             });
-                            final res = await fetchResponse(_question);
-                            setState(() {
-                              _loading = false;
-                            });
-                            if (res.type == "null") {
-                              return;
-                            } else {
-                              if (!context.mounted) {
-                                return;
-                              }
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (ctx) {
-                                return AnswerScreen(res: res);
-                              }));
-                            }
                           },
+                          child: TextButton(
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5))),
+                                backgroundColor: MaterialStateProperty.all(
+                                    ThemeColours.primaryColor)),
+                            child: !_loading
+                                ? Text("Ask",
+                                    style: GoogleFonts.montserrat(
+                                        textStyle: const TextStyle(
+                                            color: Colors.white)))
+                                : CircularProgressIndicator(//change theme
+                                    ),
+                            onPressed: () async {
+                              setState(() {
+                                _loading = true;
+                              });
+                              final res = await fetchResponse(_question);
+                              setState(() {
+                                _loading = false;
+                              });
+                              if (res.type == "null") {
+                                return;
+                              } else {
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (ctx) {
+                                  return AnswerScreen(res: res);
+                                }));
+                              }
+                            },
+                          ),
                         ),
                       ),
                     ],
