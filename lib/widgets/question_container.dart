@@ -64,7 +64,7 @@ class _QuestionState extends State<QuestionContainer> {
   Widget build(BuildContext context) {
     final flowchart = widget.flowchart;
     if (flowchart.isEmpty) {
-      return Center(child: Text("No questions available."));
+      return const Center(child: Text("No questions available."));
     }
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,13 +79,56 @@ class _QuestionState extends State<QuestionContainer> {
                     color: Colors.white,
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 47),
+                            horizontal: 30, vertical: 30),
                         child: Column(
                           children: [
-                            if (currentActionText == null)
-                              Text("QUESTION ${index + 1}",
-                                  style: ThemeText.titleText2),
-                            const SizedBox(height: 35),
+                            currentActionText == null && index == 0
+                                ? Text(
+                                    "QUESTION ${index + 1}",
+                                    style: ThemeText.titleText2,
+                                  )
+                                : currentActionText == null && index != 0
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconButton(
+                                              padding: const EdgeInsets.all(0),
+                                              onPressed: () {
+                                                setState(() {
+                                                  index--;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                  size: 20,
+                                                  Icons.arrow_back_ios,
+                                                  color: ThemeColours
+                                                      .secondaryColor)),
+                                          Text(
+                                            "QUESTION ${index + 1}",
+                                            style: ThemeText.titleText2,
+                                          ),
+                                          const SizedBox(width: 40),
+                                        ],
+                                      )
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          IconButton(
+                                              padding: const EdgeInsets.all(0),
+                                              onPressed: () {
+                                                setState(() {
+                                                  currentActionText = null;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                  Icons.arrow_back_ios,
+                                                  color: ThemeColours
+                                                      .secondaryColor)),
+                                        ],
+                                      ),
+                            const SizedBox(height: 20),
                             Text(
                               currentActionText ??
                                   flowchart[index]["question"] ??
