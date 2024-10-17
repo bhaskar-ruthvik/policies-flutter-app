@@ -7,7 +7,7 @@ import 'package:policies_app/screens/answer_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:policies_app/utils.dart';
 
-const List<String> list = <String>['English', 'Hindi', 'Telugu', 'Tamil'];
+const List<String> list = <String>['English', 'Hindi', 'Telugu'];
 
 class InputForm extends StatefulWidget {
   const InputForm({super.key});
@@ -74,23 +74,41 @@ class _InputFormState extends State<InputForm> {
                     }).toList(),
                   ),
                   const SizedBox(height: 13),
-                  TextField(
-                    onSubmitted: (value) {
-                      //in attempt to make enter button on simulator work
-                      setState(() {
-                        _question = value;
-                      });
-                    },
-                    onChanged: (value) {
-                      setState(() {
-                        _question = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        label: Text("Enter your question",
-                            style: ThemeText.bodyText)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          onSubmitted: (value) {
+                            //in attempt to make enter button on simulator work
+                            setState(() {
+                              _question = value;
+                            });
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              _question = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              label: Text("Enter your question",
+                                  style: ThemeText.bodyText)),
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      IconButton(
+                          iconSize: 20,
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30))),
+                              backgroundColor: MaterialStateProperty.all(
+                                  ThemeColours.primaryColor)),
+                          icon: const Icon(Icons.mic, color: Colors.white),
+                          onPressed: () {})
+                    ],
                   ),
                   const SizedBox(height: 13),
                   Row(
@@ -107,7 +125,7 @@ class _InputFormState extends State<InputForm> {
                               _loading = true;
                             });
                           },
-                          child: TextButton(
+                          child: IconButton(
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
@@ -116,12 +134,10 @@ class _InputFormState extends State<InputForm> {
                                             BorderRadius.circular(5))),
                                 backgroundColor: MaterialStateProperty.all(
                                     ThemeColours.primaryColor)),
-                            child: !_loading
-                                ? Text("Ask",
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: const TextStyle(
-                                            color: Colors.white)))
-                                : CircularProgressIndicator(//change theme
+                            icon: !_loading
+                                ? const Icon(Icons.arrow_forward_outlined,
+                                    color: Colors.white)
+                                : const CircularProgressIndicator(//change theme
                                     ),
                             onPressed: () async {
                               setState(() {
