@@ -1,13 +1,30 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:policies_app/models/Response.dart';
 import 'package:policies_app/screens/answer_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:policies_app/utils.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:sound_stream/sound_stream.dart';
+import 'package:record/record.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 const List<String> list = <String>['English', 'Hindi', 'Telugu'];
+
+String getLanguageCode(String language) {
+  switch (language) {
+    case 'English':
+      return 'en';
+    case 'Hindi':
+      return 'hi';
+    case 'Telugu':
+      return 'te';
+    default:
+      return 'en'; // Default to English if no match found
+  }
+}
 
 class InputForm extends StatefulWidget {
   const InputForm({super.key});
@@ -16,7 +33,29 @@ class InputForm extends StatefulWidget {
   State<InputForm> createState() => _InputFormState();
 }
 
+final recorder = AudioRecorder();
+
 class _InputFormState extends State<InputForm> {
+  Future<String> transcribeAudio(String audioPath, String languageCode) async {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('https://asr.iitm.ac.in/asr/v1/recognize/'),
+    );
+
+    request.fields['language'] = languageCode;
+    request.files.add(await http.MultipartFile.fromPath('audio', audioPath));
+
+    var res = await request.send();
+    var responseData = await res.stream.bytesToString();
+    final body = jsonDecode(responseData);
+
+    if (body == "null") {
+      throw Exception("Transcription failed");
+    }
+
+    return body['body']; // Assuming 'body' contains the transcribed text.
+  }
+
   Future<CustomResponse> fetchResponse(String question) async {
     print(question);
     var res = await http.post(
@@ -39,6 +78,29 @@ class _InputFormState extends State<InputForm> {
   var _question = "";
   String dropdownValue = list.first;
   @override
+  void _startRecording() async {
+    var status = await Permission.microphone.request();
+    if (status.isGranted) {
+      // No need for `isGranted` after the await statement
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String filePath = '${appDocDir.path}/recording.wav';
+      await recorder.start(
+        const RecordConfig(),
+        path: filePath,
+      );
+      print("Recording started");
+    } else {
+      print('Microphone permission denied');
+    }
+  }
+
+  void _stopRecording() async {
+    final path = await recorder.stop();
+    await recorder.cancel();
+    print("Recording saved at: $path");
+    recorder.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -98,16 +160,39 @@ class _InputFormState extends State<InputForm> {
                       ),
                       const SizedBox(width: 5),
                       IconButton(
-                          iconSize: 20,
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30))),
-                              backgroundColor: MaterialStateProperty.all(
-                                  ThemeColours.primaryColor)),
-                          icon: const Icon(Icons.mic, color: Colors.white),
-                          onPressed: () {})
+                        iconSize: 20,
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30))),
+                            backgroundColor: MaterialStateProperty.all(
+                                ThemeColours.primaryColor)),
+                        icon: const Icon(Icons.mic, color: Colors.white),
+                        onPressed: () async {
+                          _startRecording();
+                          await Future.delayed(
+                            Duration(seconds: 5),
+                          ); // Example: stop after 5 seconds
+                          _stopRecording();
+
+                          Directory appDocDir =
+                              await getApplicationDocumentsDirectory();
+                          String audioPath = '${appDocDir.path}/recording.wav';
+                          String languageCode = getLanguageCode(dropdownValue);
+                          try {
+                            String transcription =
+                                await transcribeAudio(audioPath, languageCode);
+
+                            // Step 2: Send the transcription to the Render backend
+                            final res = await fetchResponse(transcription);
+
+                            print("Request sent successfully");
+                          } catch (error) {
+                            print('Error: $error');
+                          }
+                        },
+                      )
                     ],
                   ),
                   const SizedBox(height: 13),
