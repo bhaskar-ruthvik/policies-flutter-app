@@ -6,7 +6,6 @@ import 'package:policies_app/screens/answer_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:policies_app/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sound_stream/sound_stream.dart';
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
