@@ -18,10 +18,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Policies App',
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ).copyWith(
-          colorScheme: ColorScheme.dark(primary: ThemeColours.primaryColor)),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: ThemeColours.primaryColor),
         useMaterial3: true,
