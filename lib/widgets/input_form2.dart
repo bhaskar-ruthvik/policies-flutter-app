@@ -67,7 +67,21 @@ class _InputFormState extends State<InputForm> {
 
     var res = await request.send();
     var responseData = await res.stream.bytesToString();
+    print(
+        "______________________________________________________________________");
+    print("Response data: $responseData");
     final body = jsonDecode(responseData);
+
+    try {
+      final body = jsonDecode(responseData); // Try decoding the response
+      if (body == "null") {
+        throw Exception("Transcription failed");
+      }
+      return body['body']; // Assuming 'body' contains the transcribed text
+    } catch (e) {
+      print("Error decoding JSON: $e");
+      throw Exception("Failed to decode response");
+    }
 
     if (body == "null") {
       throw Exception("Transcription failed");

@@ -39,10 +39,14 @@ class SoundRecorder {
   Future<String?> _stop() async {
     if (!_isRecorderInitialised) return null;
 
-    final path = await recorder?.stop();
-    isRecording = false;
-    print("Recording saved at: $path");
-    return path;
+    if (recorder != null && await recorder!.isRecording()) {
+      final path = await recorder?.stop();
+      isRecording = false;
+      return path;
+    } else {
+      print("Track was not started or already stopped.");
+      return null;
+    }
   }
 
   Future toggleRecording(String filePath) async {
