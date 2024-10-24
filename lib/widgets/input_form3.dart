@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'dart:io';
 
-const List<String> list = <String>['English', 'Hindi', 'Telugu'];
+const List<String> list = <String>['English', 'Hindi', 'Telugu', 'Tamil'];
 
 String getLanguageCode(String language) {
   switch (language) {
@@ -22,6 +22,8 @@ String getLanguageCode(String language) {
       return 'hi';
     case 'Telugu':
       return 'te';
+    case 'Tamil':
+      return 'ta';
     default:
       return 'en'; // Default to English if no match found
   }
