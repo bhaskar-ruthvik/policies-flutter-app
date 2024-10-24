@@ -39,6 +39,7 @@ dependencies:
   file_picker: ^8.1.2
   permission_handler: ^11.3.1
   record: ^5.1.2
+  speech_to_text: ^7.0.0
 
 dev_dependencies:
   flutter_test:
