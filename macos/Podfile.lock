@@ -1,0 +1,30 @@
+PODS:
+  - FlutterMacOS (1.0.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - record_darwin (1.0.0):
+    - Flutter
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
+  - record_darwin (from `Flutter/ephemeral/.symlinks/plugins/record_darwin/macos`)
+
+EXTERNAL SOURCES:
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  path_provider_foundation:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
+  record_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/record_darwin/macos
+
+SPEC CHECKSUMS:
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  record_darwin: df0a677188e5fed18472550298e675f19ddaffbe
+
+PODFILE CHECKSUM: aa790ec80df8f5bd50cbf3e41a17124beba890df
+
+COCOAPODS: 1.15.2
