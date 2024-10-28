@@ -13,6 +13,45 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'dart:io';
 
 const List<String> list = <String>['English', 'Hindi', 'Telugu', 'Tamil'];
+const List<String> secondList = <String>[
+  'None',
+  'Andaman Nicobar',
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chandigarh',
+  'Chhattisgarh',
+  'Delhi',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jammu and Kashmir',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Ladakh',
+  'Lakshadweep',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Puducherry',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'The Dadra And Nagar Haveli And Daman And Diu',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal'
+];
 
 String getLanguageCode(String language) {
   switch (language) {
@@ -48,6 +87,8 @@ class _InputFormState extends State<InputForm> {
 
   String _transcription = '';
   TextEditingController _questionController = TextEditingController();
+
+  String secondDropdownValue = secondList.first;
 
   Future<void> _listen() async {
     if (!_isListening && await _speech.initialize()) {
@@ -107,6 +148,7 @@ class _InputFormState extends State<InputForm> {
                   const SizedBox(height: 50),
                   DropdownButtonFormField(
                     dropdownColor: Colors.white,
+                    isExpanded: true,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5)),
@@ -121,7 +163,29 @@ class _InputFormState extends State<InputForm> {
                     items: list.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value),
+                        child: Text(value, style: TextStyle(fontSize: 12)),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 13),
+                  DropdownButtonFormField(
+                    dropdownColor: Colors.white,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        label: Text("Choose Input State",
+                            style: ThemeText.bodyText)),
+                    value: secondDropdownValue,
+                    onChanged: (String? value) {
+                      setState(() {
+                        secondDropdownValue = value!;
+                      });
+                    },
+                    items: secondList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value, style: TextStyle(fontSize: 12)),
                       );
                     }).toList(),
                   ),
@@ -201,7 +265,12 @@ class _InputFormState extends State<InputForm> {
                               setState(() {
                                 _loading = true;
                               });
-                              final res = await fetchResponse(_question);
+                              String modifiedQuestion = _question;
+                              if (secondDropdownValue != 'None') {
+                                modifiedQuestion +=
+                                    ' I live in $secondDropdownValue';
+                              }
+                              final res = await fetchResponse(modifiedQuestion);
                               setState(() {
                                 _loading = false;
                               });
