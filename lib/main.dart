@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:policies_app/screens/flowchart_screen.dart';
 import 'package:policies_app/screens/home_screen.dart';
+import 'package:policies_app/screens/paragraph_screen.dart';
+import 'package:policies_app/screens/web_home_screen.dart';
+import 'package:policies_app/screens/yes_no_screen.dart';
+import 'package:policies_app/utils.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,23 +14,25 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Policies App',
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-
-      ).copyWith(
-        colorScheme: ColorScheme.dark(primary: Color.fromARGB(255, 108, 218, 231))
-      ),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: ThemeColours.primaryColor),
         useMaterial3: true,
       ),
-      home: const Homescreen(),
+      home: SafeArea(child: _getHomeScreen()),
     );
   }
-}
 
+  static Widget _getHomeScreen() {
+    if (kIsWeb) {
+      // Load web-specific home screen
+      return WebHomeScreen();
+    } else {
+      // Load mobile home screen
+      return Homescreen();
+    }
+  }
+}
